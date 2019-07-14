@@ -1,0 +1,19 @@
+$TTL 1D
+@	IN SOA	centos-server.in.genx.com. root.centos-server.in.genx.com. (
+
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H 	; minimum
+)
+
+@	IN	NS	centos-server.in.genx.com.
+
+@	IN	A	192.168.0.100
+
+@	IN	A	192.168.0.30
+
+centos-server	IN	A	192.168.0.100
+
+centos-gui	IN	A	192.168.0.30
