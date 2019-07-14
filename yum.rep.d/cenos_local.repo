@@ -1,0 +1,9 @@
+[Centos_LOCAL_REPOSITORY]
+name = GENX_REPO
+comment = LocalRepository
+baseurl = file:///mnt/
+enabled = 1
+gpcheck = 1
+gpgkey = file:///mnt/RPM-GPG-KEY-CentOS-7
+
+
