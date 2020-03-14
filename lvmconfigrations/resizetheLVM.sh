@@ -1,4 +1,4 @@
-#first --> reduce the lv02 size 
+ty#first --> reduce the lv02 size 
 # form lv02 (12.5 GB ) to lv02 (6 GB )
 
 #secondly --> increae the lv01 size 
