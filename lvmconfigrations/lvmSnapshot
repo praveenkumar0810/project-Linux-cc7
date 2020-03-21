@@ -1,0 +1,35 @@
+lets create a snapshot for lv11
+
+logical volume name : lv11
+volume group name   : vg11
+physical volume name : sdd1 
+
+command to create snapshot for lv11
+
+$lvcreate -L 1GB -s -n lv11-snap /dev/vg11/lv11
+
+
+where ,
+-L --> size 
+-s --> represent snapshot name as lv11-snap
+/dev/vg11/lv11 -- > the lv path which need need to be capture the snapshot
+
+
+##########
+if the lv11 has deleted , that can be resorted 
+  do -->
+  
+ ###(unmount the filesystem)##
+  $umount the lv11
+  
+  $lvconvert --merge /dev/vg11/lv11-snapshot
+  
+  
+  ###increase the snapshot's threshold automatically by 
+  
+  vim /etc/lvm/lvm.conf
+  
+  --> unhash the  :
+  snapshot_autoextend_threshold = 70
+  
+  
