@@ -1,0 +1,50 @@
+#jenkins+dockerCompose
+
+#install docker 
+
+#pull the jenkins docker image 
+
+#write a docker-compose.yml file 
+
+
+'''
+#docker-compose.yml file
+
+
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins 	#anynameforContainer
+    image: jenkins/jenkins 		#imageName
+    ports:
+      - "8080:8080"				#localHostPort:containerPort
+    volumes:
+      - /data/jenkin-data:/var/jenkins_home 		#ourLocalhost:containevolume 
+    networks:
+      - net
+networks:
+
+'''
+
+$docker-compose up -d  			#runs the docker-compose.yml
+
+$docker ps 
+
+--> no result of running docker container 
+	-> do $docker logs jenkins
+
+
+	->> shows a volume permission error.
+
+Reason:
+
+* Inside of the Jenkins container, there's a user named "jenkins" which has a Linux uid of 1000.
+
+* You are mounting a docker volume to /var/jenkins_home which is the home directory of that user. If the directory doesn't have 1000 permissions, then the user won't be able to write/delete files, which causes the container to exit.
+
+Resolution:
+
+Apply 1000 permissions to your jenkins-data folder, and then restart the container.
+
+sudo chown 1000:1000 -R ~/jenkins-data 
+docker-compose up -d
