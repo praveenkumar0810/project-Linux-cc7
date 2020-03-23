@@ -1,0 +1,43 @@
+pvcreate /dev/sd[b-e]1 -v
+
+vgcreate -s 16M vg-strip dev/sd[b-e]1 -v
+
+vgs vg-strip
+
+
+
+#To get more detailed information about VG, use switch ‘-v‘ with vgdisplay command,
+#it will give us a every physical volumes which all used in vg_strip volume group
+
+vgdisplay vg-strip -v
+
+
+lvcreate -L 900M -n lv1 -i4 vg-strip
+
+# -L –logical volume size
+# -n –logical volume name
+# -i –stripes
+
+
+#How do we know that stripes are writing to 4 drives?. Here we can use ‘lvdisplay‘ and -m 
+#(display the mapping of logical volumes) command to verify.
+
+lvdisplay vg-strip/lv1 -m
+
+# -m (display the mapping of logical volumes)
+ ########################################################
+#To create our defined stripe size, we need to create one logical volume with
+#1GB size using my own defined Stripe size of 256KB. Now I’m going to stripe over only 3 PV’s,
+#here we can define which pvs we want to be striped.
+
+
+lvcreate -L 1G -i3 -I 256 -n lv2 vg-strip /dev/sdb1 /dev/sdc1 /dev/sdd1
+where i3 -> strip the 3PV 
+I -> Stripe size 
+
+
+# Next, check the stripe size and which volume does it stripes.
+
+lvdisplay vg-strip/lv1 -m
+
+dmsetup deps /dev/vg_strip/lv_tecmint_strp[1-2]
