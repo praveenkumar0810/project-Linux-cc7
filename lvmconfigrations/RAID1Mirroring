@@ -1,0 +1,83 @@
+in this article we are going to look how to configure raid1(Mirroring)
+Mirroring : in this we will configure a storage vloume, in order to understand the Mirroring 
+concept, we have to think lil differrnt , if we need do this to . we need 2 or more hardisk
+
+
+if we need to confiure Mirroringr raid1 storage , we need do this to . 
+we need 2 or more hardisk.
+physical hardisk : 2 nos of 10GB 
+
+if we do so, our final size of tht storage will be 10 GB .the data gonna write on the hd will mirrored (written in both the hardisk)
+by this way we can avoid the data loss , if any of hardsik fails , the another hardisk will in live all our with data
+
+
+environment :
+
+centos 7
+physical hardisk : 2 
+size : 10GB + 10 GB 
+
+
+procedure :
+step 1 :
+
+install the mdadm package :
+
+$ yum install mdadm
+
+first we need to examine the drive if it already got raid configration 
+
+$mdadm -E /dev/sd[b-c]
+
+output :
+>> no block has been found 
+
+step 2 :
+
+Drive Partitioning for RAID(create a Partion for the drive )using fdisk 
+
+$fdisk /dev/sdb
+$fdisk /dev/sdc
+
+once done ; check it with the  mdadm command 
+
+$mdadm -E /dev/sd[b-c]
+
+now check with the partions:
+$mdadm -E /dev/sd[b-c]1 
+
+>> >> no block has been found 
+
+
+step 3 :
+
+now lets create the Raid1 storage 
+mdadm --create /dev/md0 --level=mirror --raid-devices=2 /dev/sd[b-c]1
+
+where,
+
+/dev/mdo is the raid storage name (like we have in volume group /dev/vg01)
+and the /dev/mdo can be anything as kernel suggestions like : /dev/md/mdo
+
+check the raid devices type and raid array
+$mdadm -E /dev/sd[b-c]
+$mdadm --detail /dev/mdo
+
+
+step 4 :
+Creating File System on RAID Device
+mkfs.ext4 /dev/md0
+
+mount /dev/md0 /mnt/
+
+save the raid configuration manually to ‘mdadm.conf‘ file using the below command.
+mdadm --detail --scan --verbose >> /etc/mdadm.conf
+
+
+
+
+
+
+
+
+
