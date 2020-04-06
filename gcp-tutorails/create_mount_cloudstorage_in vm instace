@@ -1,2 +1,109 @@
 https://www.assistanz.com/mount-google-cloud-storage-bucket-linux/
+How to mount Google Cloud Storage Bucket in Linux
+Software Requirements
+1. Python 2.7
 
+2. Google Cloud SDK
+
+3. FUSE
+
+
+Google Cloud SDK Installation
+The Cloud SDK is a set of tools for Cloud Platform. It contains gcloud, gsutil, and bq, which you can use to access Google Compute Engine, Google Cloud Storage, Google BigQuery, and other products and services from the command-line. You can run these tools interactively or in your automated scripts.
+
+1. Download the Cloud SDK archive file:
+
+Linux (x86_64)  :  https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-156.0.0-linux-x86_64.tar.gz
+
+Linux (x86)        :  https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-156.0.0-linux-x86.tar.gz
+
+2. Extract the archive to any location on your file system.
+
+3. Optional. Run the install script to add Cloud SDK tools to your path, enable command-completion in your bash shell, and/or and enable usage reporting:
+
+./google-cloud-sdk/install.sh
+
+It will add the commands in /root/.bashrc. After, execute below command to make it working in current shell:
+
+source /root/.bashrc
+
+Next, we have to authenticate Google Cloud in SDK,
+
+Run core gcloud commands to authenticate your SDK to Google Cloud account:
+
+1. To authenticate run:
+
+#gcloud auth login
+
+2. It will generate the browser level login URL to complete the verification. Like,
+
+https://accounts.google.com/o/oauth2/authredirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&
+prompt=select_account&response_type=code&client_id=ID.apps.googleusercontent.com&scope=https
+%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2
+Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3
+A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2
+Faccounts.reauth&access_type=offline
+3. Visit the URL by copy and pasting in browser and sign in using your Google Cloud account.
+
+4. You will get a verification code and enter the verification code in next option.
+
+5. This will complete the SDK authenticate.
+
+6. Execute following command to verify your GC account is active,
+
+#gcloud auth list
+
+Next, login to default application to get auth key,
+
+1. To get default auth key:
+
+#gcloud auth application-default login
+
+2. Again, it will generate the browser level login URL to complete the verification.
+
+3. Visit the URL by copy and pasting in browser and sign in using your Google Cloud account.
+
+4. You will get a verification code and enter the verification code in next option.
+
+5. Once it’s completed, the auth key will be saved in JSON file: [/root/.config/gcloud/application_default_credentials.json].
+
+6. These credentials will be used by any library that requests Application Default Credentials.
+
+FUSE Installation
+Cloud Storage FUSE is an open source FUSE adapter that allows you to mount Google Cloud Storage buckets as file systems on Linux or OS X systems. It also provides a way for applications to upload and download Google Cloud Storage objects using standard file system semantics.
+
+Cloud Storage FUSE can be run anywhere with connectivity to Google Cloud Storage, including Google Compute Engine VMs or on-premises systems
+
+1. Prerequisites
+
+Before invoking gcsfuse, you must have a GCS bucket that you want to mount. If your bucket doesn’t yet exist, create one using the Google Developers Console.
+
+GCS credentials are automatically loaded using Google application default credentials, or a JSON key file can be specified explicitly using –key
+
+2. Configure the gcsfuse using yum repo:
+
+#vim /etc/yum.repos.d/gcsfuse.repo
+
+[gcsfuse]
+name=gcsfuse (packages.cloud.google.com)
+baseurl=https://packages.cloud.google.com/yum/repos/gcsfuse-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+
+5. Install gcsfuse:
+
+#sudo yum install gcsfuse
+
+4. To mount a bucket using gcsfuse over an existing directory /path/to/mount, invoke it like this:
+
+#gcsfuse my-bucket /path/to/mount
+
+5. The gcsfuse tool will exit successfully after mounting the file system. Unmount in the usual way for a fuse file system on your operating system:
+
+#fusermount -u /path/to/mount  # Linux
+
+Mount on Bootup
+To mount the google bucket on system startup, add below line in fstab.
+
+#my-bucket /mount/point gcsfuse rw,uid=0,gid=0
