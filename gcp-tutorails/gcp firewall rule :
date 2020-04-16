@@ -1,0 +1,24 @@
+gcp firewall rule :
+
+ingress - inward traffic 
+egress - outwared traffic 
+
+firewall :
+
+what is ? 
+allow you permit incoming (ingress) and outgoig traffic to/from VM
+
+each rule can only allow or deny the traffic nothing else like 
+lower the traffic 
+
+
+what of firewall made of ?
+priority ! higher the number lower thr priority
+action : allow or deny
+Target (which ip of should)
+protocol - port number
+Enforcement 
+
+Priority
+ranges form 0- 65535
+default priority - 1000
