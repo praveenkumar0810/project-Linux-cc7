@@ -1,0 +1,33 @@
+wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-156.0.0-linux-x86_64.tar.gz
+
+tar -xvf google-cloud-sdk-156.0.0-linux-x86_64.tar.gz
+
+
+./google-cloud-sdk/install.sh
+source /root/.bashrc
+
+gcloud auth login
+
+
+
+vim /etc/yum.repos.d/gcsfuse.repo
+[gcsfuse]
+name=gcsfuse (packages.cloud.google.com)
+baseurl=https://packages.cloud.google.com/yum/repos/gcsfuse-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+
+
+
+
+
+
+yum -y install gcsfuse
+
+
+
+
+
+
+
