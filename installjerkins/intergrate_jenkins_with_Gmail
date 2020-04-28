@@ -1,0 +1,24 @@
+aim : to integrate gmail with the Jenkins jobs , Jenkins will send us a mail if the build fails, or any x operation is happened 
+
+step 1;
+
+install the mailer Plugin
+manage Jenkins -> Configure systems 
+
+
+search google for gmail less secure app 
+and disable the Allow less secure apps: ON
+
+
+E-mail Notification
+SMTP server :   smtp.gmail.com
+
+check the >  Use SMTP Authentication
+User Name > praveenkumar081097@gmail.com
+
+Password> mailpassword 
+useSSl > click the check box
+
+SMPT PORT > 465
+
+CHECK WITH configuration by sending test e-mail 
