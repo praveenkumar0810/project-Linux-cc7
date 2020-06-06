@@ -1,0 +1,4 @@
+echo "admin" | sudo passwd root --stdin
+sudo yum -y install bash-comple*
+sudo yum -y install git
+
