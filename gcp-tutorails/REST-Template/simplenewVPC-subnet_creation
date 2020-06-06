@@ -1,0 +1,20 @@
+POST https://www.googleapis.com/compute/v1/projects/protean-topic-279514/global/networks
+{
+  "autoCreateSubnetworks": false,
+  "description": "VLAN-01 network",
+  "name": "vlan-01",
+  "routingConfig": {
+    "routingMode": "REGIONAL"
+  }
+}
+
+POST https://www.googleapis.com/compute/v1/projects/protean-topic-279514/regions/europe-north1/subnetworks
+{
+  "enableFlowLogs": false,
+  "ipCidrRange": "192.168.3.0/24",
+  "name": "sub-01-eur-north",
+  "network": "projects/protean-topic-279514/global/networks/vlan-01",
+  "privateIpGoogleAccess": true,
+  "region": "projects/protean-topic-279514/regions/europe-north1",
+  "secondaryIpRanges": []
+}
