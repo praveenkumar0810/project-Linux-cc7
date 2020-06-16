@@ -1,1 +1,6 @@
+docker service create --name webserver --replicas 5 --publish 80:80 httpd
 
+
+
+#create a overlay network 
+docker network create --driver overlay <network name>
