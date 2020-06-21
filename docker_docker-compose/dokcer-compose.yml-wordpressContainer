@@ -14,4 +14,4 @@ mariadb:
      - MYSQL_ROOT_PASSWORD=Dygy!)p)3jS#N^Yp7cCm
      - MYSQL_DATABASE=wordpress
     volumes:
-     - ./data/database:/var/l
+     - ./database:/var/lib/mysql
