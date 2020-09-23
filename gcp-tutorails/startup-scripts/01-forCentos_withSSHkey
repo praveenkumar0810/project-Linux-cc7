@@ -2,12 +2,12 @@ echo "admin" | sudo passwd root --stdin
 sudo yum -y install bash-comple*
 sudo yum -y install git
 sudo yum -y install htop
-mkdir -pv /root/.ssh
-touch /root/.ssh/authorized_keys
-echo 'remote-key.pub' >> /root/.ssh/authorized_keys
-chmod -Rv 0700 /root/.ssh
-sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
-sed -i 's/PasswordAuthentication no/#PasswordAuthentication no/g' /etc/ssh/sshd_config
-sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-systemctl restart network
-systemctl restart sshd
+sudo mkdir -pv /root/.ssh
+sudo touch /root/.ssh/authorized_keys
+sudo echo 'Xremote-key.pubX' >> /root/.ssh/authorized_keys
+sudo chmod -Rv 0700 /root/.ssh
+sudo sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/PasswordAuthentication no/#PasswordAuthentication no/g' /etc/ssh/sshd_config
+sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sudo systemctl restart network
+sudo systemctl restart sshd
