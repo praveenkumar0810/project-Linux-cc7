@@ -1,0 +1,41 @@
+How to Back Up and Restore WordPress container to another Host/container:
+
+
+
+##backup Database Table from running container_:
+
+docker exec container_name /usr/bin/mysqldump -u root --password='<sql root --password>' table_name > backup.sql
+
+
+example : 
+docker exec data_mariadb_1 /usr/bin/mysqldump -u root --password='Passxdfasldkf9o384' wordpress > backup.sql
+
+
+
+#archie wordpress contents 
+docker exec -it  container_name tar -cpvzf des_path source_path
+
+where :
+tar -cpvzf -> archie command
+des_path -> des_path to store the archie file inside container itelf
+source_path -> from where archie should begin
+
+
+example : 
+docker exec -it  data_wordpress_1 tar -cpvzf /opt/wordpress_backup1.tar.gz /var/www/html/
+
+
+
+
+#copy the content from container to host 
+docker cp data_wordpress_1:/opt/wordpress_backup1.tar.gz /backup-drive/manual/
+
+
+
+restore your database back to the runing new(old) container
+cat backup.sql | docker exec -i container_name /usr/bin/mysql -u root --password=""Passxdfasldkf9o384"" Database_table_name
+
+cat backup.sql | docker exec -i testing_db /usr/bin/mysql -u root --password=""Passxdfasldkf9o384"" wordpress
+
+tar -xzvf filename.tar.gz
+yes | cp -rv var/www/html/* /var/www/html/
