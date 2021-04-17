@@ -1,4 +1,4 @@
-simple setup for docker & dokcer compose 
+###simple setup for docker & dokcer compose 
 
 yum -y install bash-comple*
 
