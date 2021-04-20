@@ -66,14 +66,14 @@ version: '3'
 
 services:
   db:
-    image: mysql:8.0
+    image: mariadb
     container_name: db
     restart: unless-stopped
     env_file: .env
     environment:
       - MYSQL_DATABASE=wordpress
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./dbdata:/var/lib/mysql
     command: '--default-authentication-plugin=mysql_native_password'
     networks:
       - app-network
@@ -91,7 +91,7 @@ services:
       - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
       - WORDPRESS_DB_NAME=wordpress
     volumes:
-      - wordpress:/var/www/html
+      - ./wordpress:/var/www/html
     networks:
       - app-network
 
@@ -104,9 +104,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - wordpress:/var/www/html
+      - ./wordpress:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
+      - ./certbot-etc:/etc/letsencrypt
     networks:
       - app-network
 
@@ -116,8 +116,8 @@ services:
     image: certbot/certbot
     container_name: certbot
     volumes:
-      - certbot-etc:/etc/letsencrypt
-      - wordpress:/var/www/html
+      - ./certbot-etc:/etc/letsencrypt
+      - ./wordpress:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html --email praveenkumar.mail08101997@gmail.com --agree-tos --no-eff-email --staging -d eunitecorp.com -d www.eunitecorp.com
 
 volumes:
