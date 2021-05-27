@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: 'tri-mongodb'
+    environment:
+      - MONGO_INITDB_DATABASE=library
+      - MONGO_INITDB_ROOT_USERNAME=triadmin
+      - MONGO_INITDB_ROOT_PASSWORD=admin01
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+volumes:
+ mongodb:

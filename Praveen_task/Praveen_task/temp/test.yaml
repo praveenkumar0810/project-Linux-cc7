@@ -1,0 +1,49 @@
+---
+ - hosts: all
+   user: root
+   tasks:
+    - name: curl
+      uri:
+        url: https://rpm.nodesource.com/setup_10.x
+   tasks:
+    - name: Installing nodejs Packages
+      action: yum name=nodejs state=installed 
+   tasks:
+    - name: Clone bitbucket repo
+      git:
+        repo: https://github.com/johnpapa/node-hello.git
+        dest: /opt/
+        version: master
+
+
+
+
+docker exec -it -u root webserver bash
+
+version: '3'
+services:
+  centosnginx:
+    restart: always
+    build: .
+    environment:
+      root_username: root
+      root_password: admin01
+    ports:
+      - 80:80
+    volumes:
+      - ./:/code
+
+      
+10.172.0.22 testing-instance
+10.172.0.30	client-1
+10.172.0.31	client-12
+
+[kubernetes]
+
+name=Kubernetes baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64 
+enabled=1 
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg 
+https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+

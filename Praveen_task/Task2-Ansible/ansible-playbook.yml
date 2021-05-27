@@ -1,0 +1,16 @@
+---
+ - hosts: all
+   user: root
+   tasks:
+    - name: curl
+      uri:
+        url: https://rpm.nodesource.com/setup_10.x
+    - name: Installing nodejs Packages
+      action: yum name=nodejs state=installed 
+    - name: Clone bitbucket repo
+      git:
+        repo: https://github.com/johnpapa/node-hello.git
+        dest: /opt/
+        version: master
+    - name: Go to the folder and execute command
+      command: chdir=/opt/ npm start &&
