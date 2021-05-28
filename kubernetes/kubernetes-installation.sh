@@ -47,6 +47,19 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 kubeadm init --pod-network-cidr=10.244.0.0/16
 
 
-
-#Network driver :
+#Network driver :#####
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+
+join any kube install node with cluster :
+kubeadm join 192.168.1.99:6443 --token TOKEN --discovery-token-ca-cert-hash DISCOVERY_TOKEN
+
+Configuring Kubernetes
+Before Kubernetes can be used, we must take care of a bit of configuration. Issue the following three commands (to create a new .kube configuration directory, copy the necessary configuration file, and give the file the proper ownership):
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Deploy flannel network
+Now we must deploy the flannel network to the cluster with the command:
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
