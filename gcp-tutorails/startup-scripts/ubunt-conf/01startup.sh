@@ -1,4 +1,4 @@
-echo "admin" | sudo passwd root --stdin
+sudo sh -c 'echo root:admin | chpasswd'
 sudo apt -y install bash-comple*
 sudo apt -y install git
 sudo apt -y install htop
