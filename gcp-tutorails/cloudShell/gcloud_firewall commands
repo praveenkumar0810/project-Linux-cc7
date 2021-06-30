@@ -1,0 +1,10 @@
+Gcloud Commmands :
+
+
+gcloud compute firewall-rules update
+
+    syntax :
+    
+  > gcloud compute firewall-rules update <Rule Name> --source-ranges=<IP RANGE>
+
+  > gcloud compute firewall-rules update custom-ssh-allow --source-ranges=XX.XX.XXX.XXX/32
